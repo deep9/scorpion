@@ -28,7 +28,7 @@ describe('SimpleDi', function() {
   });
 
   describe('forceRegister', function() {
-    it('does not throw when a invalid number of arguments is passed', function() {
+    it('does not throw when something is already registered with the same name', function() {
       di.register('foo', {});
       expect(function() {
         di.forceRegister('foo', {});
@@ -59,29 +59,22 @@ describe('SimpleDi', function() {
       });
     });
 
-    it('retrieves a async module', function(done) {
+    it('retrieves an async module', function(done) {
       di.get('depB').then(function(retrievedObj) {
         expect(retrievedObj).toBe(depB);
         done();
       });
     });
 
-    it('retrieves a async module and resolves its dependencies', function(done) {
+    it('retrieves an async module and resolves its dependencies', function(done) {
       di.register('depC', ['depB'], function(depB) {
-        return new Promise(function(resolve, reject) {
-          if(depB) {
-            resolve(depC);
-          } else {
-            reject();
-          }
+        return new Promise(function(resolve) {
+          resolve([depC, depB]);
         });
       });
-      di.get('depC').then(function(retrievedObj) {
-        expect(retrievedObj).toBe(depC);
-        done();
-      }).catch(function() {
-        throw new Error('module not resolved');
-      });
+      di.get('depC').then(function(arr) {
+        expect(arr).toEqual([depC, depB]);
+      }).then(done, done);
     });
   });
 

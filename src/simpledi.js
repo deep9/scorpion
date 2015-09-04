@@ -47,7 +47,7 @@ export default class SimpleDi {
     this._registry[name] = {
       factory,
       dependencies
-    }
+    };
   }
 
 }
