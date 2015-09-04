@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter dot --recursive -r setup-referee-sinon/globals test/unit --compilers js:babel/register"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,21 @@
   "bugs": {
     "url": "https://github.com/p7s1digital/psd-simpledi/issues"
   },
-  "homepage": "https://github.com/p7s1digital/psd-simpledi"
+  "homepage": "https://github.com/p7s1digital/psd-simpledi",
+  "devDependencies": {
+    "babel": "^5.5.14",
+    "babel-eslint": "^3.1.23",
+    "babel-runtime": "^5.8.20",
+    "babelify": "^6.1.2",
+    "browserify": "^10.2.4",
+    "eslint": "^0.24.0",
+    "eslint-plugin-react": "^2.6.4",
+    "mocha": "^2.2.5",
+    "referee": "^1.1.1",
+    "referee-sinon": "^1.0.2",
+    "setup-referee-sinon": "^0.3.0",
+    "sinon": "^1.15.4",
+    "sinon-as-promised": "^4.0.0",
+    "watchify": "^3.2.2"
+  }
 }
