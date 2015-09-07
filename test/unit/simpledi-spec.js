@@ -1,6 +1,5 @@
 import SimpleDi from '../../src/simpledi.js';
 
-
 describe('SimpleDi', function() {
 
   let di;
@@ -75,6 +74,52 @@ describe('SimpleDi', function() {
       di.get('depC').then(function(arr) {
         expect(arr).toEqual([depC, depB]);
       }).then(done, done);
+    });
+
+    it('throws when trying to resolve a direct cicular dependency', function() {
+      function Foo(bar) {}
+
+      function Bar(foo) {}
+
+      di.register('Foo', ['Bar'], SimpleDi.withNew(Foo));
+      di.register('Bar', ['Foo'], SimpleDi.withNew(Bar));
+
+      try {
+        di.get('Foo')
+      } catch(e) {
+        expect(e.toString()).toEqual('Error: Circular Dependency detected: Foo => Bar => Foo');
+      }
+    });
+
+    it('throws when trying to resolve a cicular dependency', function() {
+      function Foo() {}
+
+      function Bar() {}
+
+      di.register('Foo', ['Bar'], SimpleDi.withNew(Foo));
+      di.register('Bar', ['Baz'], SimpleDi.withNew(Bar));
+      di.register('Baz', ['Foo'], SimpleDi.withNew(Bar));
+
+      try {
+        di.get('Foo');
+      } catch(e) {
+        expect(e.toString()).toEqual('Error: Circular Dependency detected: Foo => Bar => Baz => Foo');
+      }
+    });
+
+    it('throws when a circular dependency is detected', function() {
+      di.register('Foo', ['Bar'], () => {
+        return {};
+      });
+      di.register('Bar', ['Foo'], () => {
+        return {};
+      });
+
+      try {
+        di.get('Foo');
+      } catch(e) {
+        expect(e.toString()).toEqual('Error: Circular Dependency detected: Foo => Bar => Foo');
+      }
     });
   });
 

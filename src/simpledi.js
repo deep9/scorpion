@@ -8,12 +8,29 @@ export default class SimpleDi {
     if (!this._registry[name]) {
       throw new Error('Module not found: ' + name);
     }
+
+    return this._resolve(name);
+  }
+
+  _resolve(name, chain = []) {
     const requestedModule = this._registry[name];
+    chain.push(name);
     return Promise.all(requestedModule.dependencies.map((dependencyName) => {
-      return this.get(dependencyName);
+      const clonedChain = [...chain];
+      if(clonedChain.indexOf(dependencyName) !== -1) {
+        var stringifiedChain = this._stringifyDependencyChain(clonedChain.concat([
+          dependencyName
+        ]));
+        throw new Error('Circular Dependency detected: ' + stringifiedChain)
+      }
+      return this._resolve(dependencyName, clonedChain);
     })).then((dependencies) => {
       return requestedModule.factory.apply(null, dependencies);
     });
+  }
+
+  _stringifyDependencyChain(dependencyChain) {
+    return dependencyChain.join(' => ');
   }
 
   register(...args) {
@@ -47,6 +64,32 @@ export default class SimpleDi {
     this._registry[name] = {
       factory,
       dependencies
+    };
+  }
+
+  static withNew(Constructor) {
+    return (...dependencies) => {
+      var thisArg = {};
+      var NewConstructor = Constructor.bind.apply(Constructor, [thisArg].concat(dependencies));
+      return new NewConstructor();
+    };
+  }
+
+  static always(obj) {
+    return () => {
+      return obj;
+    };
+  }
+
+  static withNewOnce(Constructor) {
+    var constructorFactory = SimpleDi.withNew(Constructor);
+    var id = uuid();
+    return () => {
+      if(!_instanceCache[id]) {
+        var thisArg = {};
+        _instanceCache[id] = constructorFactory.apply(thisArg, arguments);
+      }
+      return _instanceCache[id];
     };
   }
 
