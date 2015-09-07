@@ -6,6 +6,41 @@ Install SimpleDi 2 with npm: `npm install simpledi2`.
 ```javascript
 import SimpleDi from 'simpledi2';
 const di = new SimpleDi();
+
+// register an object
+di.register('myConfig', SimpleDi.always({
+  test: true
+}));
+
+// register a class
+class MyClass {
+  constructor(myConfig) {
+  }
+}
+di.register('MyClass', ['myConfig'], SimpleDi.withNew(MyClass));
+
+// register an async factory
+di.register('asyncModule', () => {
+  return new Promise((resolve) => {
+    // do some async tasks then resolve
+    resolve({
+      asyncModule: true
+    });
+  });
+});
+
+// get registered modules
+di.get('myConfig').then((myConfig) => {
+  // do something
+});
+
+di.get('MyClass').then((myClassInstance) => {
+  // do something
+});
+
+di.get('asyncModule').then((asyncModule) => {
+  // do something
+});
 ```
 
 ## API
