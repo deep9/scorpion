@@ -40,3 +40,11 @@ This method just works like `register` but won't throw when a module with the sa
 ### Get and resolve dependencies
 
 #### `di.get(name)`
+
+`get` returns a promise which will be resolved once all dependencies are resolved.
+
+```javascript
+di.get('foo').then((foo) => {
+  // do something with foo
+});
+```
