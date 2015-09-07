@@ -1,3 +1,7 @@
+var uuid = require('./utils').uuid;
+
+const _instanceCache = {};
+
 export default class SimpleDi {
 
   constructor() {

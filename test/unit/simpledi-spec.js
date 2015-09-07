@@ -123,4 +123,37 @@ describe('SimpleDi', function() {
     });
   });
 
+  describe('SimpleDi.withNewOnce', function() {
+    it('initializes a constructor with new once and then always returns the instance', function(done) {
+      function Foo() {
+        this.foo = true;
+      }
+
+      di.register('Foo', SimpleDi.withNewOnce(Foo));
+
+      Promise.all([di.get('Foo'), di.get('Foo')]).then((values) => {
+        expect(values[0]).toBe(values[1]);
+        done();
+      });
+    });
+
+    it('returns always the same instance and resolves dependencies', function() {
+      function Foo(bar) {
+        this.foo = true;
+        this.bar = bar;
+      }
+
+      var bar = {
+        bar: true
+      };
+
+      di.register('Foo', ['bar'], SimpleDi.withNewOnce(Foo));
+      di.register('bar', SimpleDi.always(bar));
+
+      di.get('Foo').then((foo) => {
+        expect(foo.bar).toBe(bar);
+      });
+    });
+  });
+
 });
