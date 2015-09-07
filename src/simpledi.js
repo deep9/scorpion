@@ -6,6 +6,7 @@ export default class SimpleDi {
 
   constructor() {
     this._registry = {};
+    this._resolvedDependencies = {};
   }
 
   get(name) {
@@ -18,10 +19,11 @@ export default class SimpleDi {
 
   _resolve(name, chain = []) {
     const requestedModule = this._registry[name];
+    this._resolvedDependencies[name]++;
     chain.push(name);
     return Promise.all(requestedModule.dependencies.map((dependencyName) => {
       const clonedChain = [...chain];
-      if(clonedChain.indexOf(dependencyName) !== -1) {
+      if (clonedChain.indexOf(dependencyName) !== -1) {
         var stringifiedChain = this._stringifyDependencyChain(clonedChain.concat([
           dependencyName
         ]));
@@ -35,6 +37,10 @@ export default class SimpleDi {
 
   _stringifyDependencyChain(dependencyChain) {
     return dependencyChain.join(' => ');
+  }
+
+  getResolvedDependencyCount() {
+    return this._resolvedDependencies;
   }
 
   register(...args) {
@@ -65,6 +71,7 @@ export default class SimpleDi {
     if (this._registry[name] && overwrite === false) {
       throw new Error('Module already exists: ' + name);
     }
+    this._resolvedDependencies[name] = 0;
     this._registry[name] = {
       factory,
       dependencies
@@ -89,7 +96,7 @@ export default class SimpleDi {
     var constructorFactory = SimpleDi.withNew(Constructor);
     var id = uuid();
     return () => {
-      if(!_instanceCache[id]) {
+      if (!_instanceCache[id]) {
         var thisArg = {};
         _instanceCache[id] = constructorFactory.apply(thisArg, arguments);
       }

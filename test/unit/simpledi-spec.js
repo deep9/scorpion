@@ -35,6 +35,33 @@ describe('SimpleDi', function() {
     });
   });
 
+  describe('getResolvedDependencyCount', function() {
+    it('counts how often dependencies where resolved', function() {
+      var obj = {foo: true};
+      di.register('foo', function() {
+        return obj;
+      });
+
+      di.get('foo');
+      expect(di.getResolvedDependencyCount().foo).toBe(1);
+    });
+
+    it('counts how often dependencies where resolved with deep dependencies', function() {
+      var obj = {foo: true};
+      di.register('foo', function() {
+        return obj;
+      });
+
+      di.register('bar', ['foo'], function() {
+        return obj;
+      });
+
+      di.get('bar');
+      di.get('foo');
+      expect(di.getResolvedDependencyCount()).toEqual({foo: 2, bar: 1});
+    });
+  });
+
   describe('get', function() {
 
     const depA = {a: true};
