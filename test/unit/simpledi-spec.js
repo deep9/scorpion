@@ -124,6 +124,22 @@ describe('SimpleDi', function() {
   });
 
   describe('SimpleDi.withNewOnce', function() {
+    it('initializes a Constructor with new', function(done) {
+      class Foo {
+        bar() {}
+      }
+
+      di.register('Foo', SimpleDi.withNew(Foo));
+
+      di.get('Foo').then(function(foo) {
+        expect(foo instanceof Foo);
+        expect(foo.bar).not.toBe(undefined);
+        done();
+      });
+    });
+  });
+
+  describe('SimpleDi.withNewOnce', function() {
     it('initializes a constructor with new once and then always returns the instance', function(done) {
       function Foo() {
         this.foo = true;
