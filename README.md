@@ -48,3 +48,31 @@ di.get('foo').then((foo) => {
   // do something with foo
 });
 ```
+
+## Built-in factory functions
+
+### `SimpleDi.always(objectOrFunction)`
+
+Name | Type | Description
+-----|------|------------
+objectOrFunction | `mixed` | Always returns this argument
+
+A factory function that always returns the first argument when `di.get` is called.
+
+### `SimpleDi.withNew(Constructor)`
+
+Name | Type | Description
+-----|------|------------
+Constructor | `function` | A constructor function
+
+When `di.get` is called this factory function will initialize the given constructor with new.
+
+### `SimpleDi.withNewOnce(Constructor)`
+
+Name | Type | Description
+-----|------|------------
+Constructor | `function` | A constructor function
+
+When `di.get` is called the *first time* this factory function will initialize 
+the given constructor and for all upcoming calls it will always return the
+same instance. You can think of it as a singleton factory.
