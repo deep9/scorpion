@@ -17,6 +17,12 @@ export default class SimpleDi {
     return this._resolve(name);
   }
 
+  getAll(names) {
+    return Promise.all(names.map((name) => {
+      return this.get(name);
+    }));
+  }
+
   _resolve(name, chain = []) {
     const requestedModule = this._registry[name];
     this._resolvedDependencies[name]++;
