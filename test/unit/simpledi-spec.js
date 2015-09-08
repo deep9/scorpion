@@ -148,6 +148,17 @@ describe('SimpleDi', function() {
     });
   });
 
+  describe('getAll', function() {
+    it('retrieves multiple modules by passing an array', function() {
+      di.register('foo', SimpleDi.always({}));
+      di.register('bar', SimpleDi.always({}));
+
+      di.getAll(['foo', 'bar']).then((modules) => {
+        expect(modules.length).toBe(2);
+      });
+    });
+  });
+
   describe('SimpleDi.withNew', function() {
     it('initializes a Constructor with new', function(done) {
       class Foo {
