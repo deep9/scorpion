@@ -94,6 +94,14 @@ objectOrFunction | `mixed` | Always returns this argument
 
 A factory function that always returns the first argument when `di.get` is called.
 
+### `SimpleDi.once(objectOrFunction)`
+
+Name | Type | Description
+-----|------|------------
+objectOrFunction | `mixed` | Invokes this function once
+
+Invokes the passed factory once and will then always return the same return value.
+
 ### `SimpleDi.withNew(Constructor)`
 
 Name | Type | Description
