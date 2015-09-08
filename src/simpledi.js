@@ -94,13 +94,19 @@ export default class SimpleDi {
 
   static withNewOnce(Constructor) {
     var constructorFactory = SimpleDi.withNew(Constructor);
+    return SimpleDi.once(constructorFactory);
+  }
+
+  static once(factory) {
     var id = uuid();
     return () => {
       if (!_instanceCache[id]) {
         var thisArg = {};
-        _instanceCache[id] = constructorFactory.apply(thisArg, arguments);
+        _instanceCache[id] = {
+          returnValue: factory.apply(thisArg, arguments)
+        };
       }
-      return _instanceCache[id];
+      return _instanceCache[id].returnValue;
     };
   }
 

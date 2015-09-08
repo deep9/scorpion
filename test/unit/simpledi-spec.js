@@ -199,4 +199,16 @@ describe('SimpleDi', function() {
     });
   });
 
+  describe('SimpleDi.once', function() {
+    it('calls the factory once even when get is called multiple times', function(done) {
+      const spy = sinon.spy();
+      di.register('foo', SimpleDi.once(spy));
+
+      Promise.all([di.get('foo'), di.get('foo')]).then(function() {
+        expect(spy.calledOnce).toBe(true);
+        done();
+      });
+    });
+  });
+
 });
