@@ -150,7 +150,7 @@ describe('SimpleDi', function() {
     });
   });
 
-  describe('SimpleDi.withNewOnce', function() {
+  describe('SimpleDi.withNew', function() {
     it('initializes a Constructor with new', function(done) {
       class Foo {
         bar() {}
