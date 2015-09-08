@@ -1,13 +1,12 @@
 import SimpleDi from '../../src/simpledi.js';
 
 describe('SimpleDi', function() {
-
   let di;
   beforeEach(function() {
     di = new SimpleDi();
   });
 
-  describe('register', function(done) {
+  describe('register', function() {
     it('registers a simple object', function() {
       expect(function() {
         di.register('foo', {});
@@ -37,7 +36,7 @@ describe('SimpleDi', function() {
 
   describe('getResolvedDependencyCount', function() {
     it('counts how often dependencies where resolved', function() {
-      var obj = {foo: true};
+      const obj = {foo: true};
       di.register('foo', function() {
         return obj;
       });
@@ -47,7 +46,7 @@ describe('SimpleDi', function() {
     });
 
     it('counts how often dependencies where resolved with deep dependencies', function() {
-      var obj = {foo: true};
+      const obj = {foo: true};
       di.register('foo', function() {
         return obj;
       });
@@ -63,7 +62,6 @@ describe('SimpleDi', function() {
   });
 
   describe('get', function() {
-
     const depA = {a: true};
     const depB = {b: true};
     const depC = {c: true};
@@ -93,9 +91,9 @@ describe('SimpleDi', function() {
     });
 
     it('retrieves an async module and resolves its dependencies', function(done) {
-      di.register('depC', ['depB'], function(depB) {
+      di.register('depC', ['depB'], function(dependencyB) {
         return new Promise(function(resolve) {
-          resolve([depC, depB]);
+          resolve([depC, dependencyB]);
         });
       });
       di.get('depC').then(function(arr) {
@@ -104,15 +102,15 @@ describe('SimpleDi', function() {
     });
 
     it('throws when trying to resolve a direct cicular dependency', function() {
-      function Foo(bar) {}
+      function Foo() {}
 
-      function Bar(foo) {}
+      function Bar() {}
 
       di.register('Foo', ['Bar'], SimpleDi.withNew(Foo));
       di.register('Bar', ['Foo'], SimpleDi.withNew(Bar));
 
       try {
-        di.get('Foo')
+        di.get('Foo');
       } catch(e) {
         expect(e.toString()).toEqual('Error: Circular Dependency detected: Foo => Bar => Foo');
       }
@@ -186,7 +184,7 @@ describe('SimpleDi', function() {
         this.bar = bar;
       }
 
-      var bar = {
+      const bar = {
         bar: true
       };
 
@@ -210,5 +208,4 @@ describe('SimpleDi', function() {
       });
     });
   });
-
 });

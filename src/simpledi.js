@@ -1,4 +1,4 @@
-var uuid = require('./utils').uuid;
+import {uuid} from './utils';
 
 const _instanceCache = {};
 
@@ -24,10 +24,10 @@ export default class SimpleDi {
     return Promise.all(requestedModule.dependencies.map((dependencyName) => {
       const clonedChain = [...chain];
       if (clonedChain.indexOf(dependencyName) !== -1) {
-        var stringifiedChain = this._stringifyDependencyChain(clonedChain.concat([
+        const stringifiedChain = this._stringifyDependencyChain(clonedChain.concat([
           dependencyName
         ]));
-        throw new Error('Circular Dependency detected: ' + stringifiedChain)
+        throw new Error('Circular Dependency detected: ' + stringifiedChain);
       }
       return this._resolve(dependencyName, clonedChain);
     })).then((dependencies) => {
@@ -80,8 +80,8 @@ export default class SimpleDi {
 
   static withNew(Constructor) {
     return (...dependencies) => {
-      var thisArg = {};
-      var NewConstructor = Constructor.bind.apply(Constructor, [thisArg].concat(dependencies));
+      const thisArg = {};
+      const NewConstructor = Constructor.bind.apply(Constructor, [thisArg].concat(dependencies));
       return new NewConstructor();
     };
   }
@@ -93,15 +93,15 @@ export default class SimpleDi {
   }
 
   static withNewOnce(Constructor) {
-    var constructorFactory = SimpleDi.withNew(Constructor);
+    const constructorFactory = SimpleDi.withNew(Constructor);
     return SimpleDi.once(constructorFactory);
   }
 
   static once(factory) {
-    var id = uuid();
+    const id = uuid();
     return () => {
       if (!_instanceCache[id]) {
-        var thisArg = {};
+        const thisArg = {};
         _instanceCache[id] = {
           returnValue: factory.apply(thisArg, arguments)
         };
