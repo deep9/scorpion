@@ -1,14 +1,14 @@
-# SimpleDi 2
+# Scorpion
 
 ## Quickstart
-Install SimpleDi 2 with npm: `npm install simpledi2`.
+Install Scorpion 2 with npm: `npm install simpledi2`.
 
 ```javascript
-import SimpleDi from 'simpledi2';
-const di = new SimpleDi();
+import Scorpion from 'scorpion';
+const di = new Scorpion();
 
 // register an object
-di.register('myConfig', SimpleDi.always({
+di.register('myConfig', Scorpion.always({
   test: true
 }));
 
@@ -17,7 +17,7 @@ class MyClass {
   constructor(myConfig) {
   }
 }
-di.register('MyClass', ['myConfig'], SimpleDi.withNew(MyClass));
+di.register('MyClass', ['myConfig'], Scorpion.withNew(MyClass));
 
 // register an async factory
 di.register('asyncModule', () => {
@@ -86,7 +86,7 @@ di.get('foo').then((foo) => {
 
 ## Built-in factory functions
 
-### `SimpleDi.always(objectOrFunction)`
+### `Scorpion.always(objectOrFunction)`
 
 Name | Type | Description
 -----|------|------------
@@ -94,7 +94,7 @@ objectOrFunction | `mixed` | Always returns this argument
 
 A factory function that always returns the first argument when `di.get` is called.
 
-### `SimpleDi.once(objectOrFunction)`
+### `Scorpion.once(objectOrFunction)`
 
 Name | Type | Description
 -----|------|------------
@@ -102,7 +102,7 @@ objectOrFunction | `mixed` | Invokes this function once
 
 Invokes the passed factory once and will then always return the same return value.
 
-### `SimpleDi.withNew(Constructor)`
+### `Scorpion.withNew(Constructor)`
 
 Name | Type | Description
 -----|------|------------
@@ -110,7 +110,7 @@ Constructor | `function` | A constructor function
 
 When `di.get` is called this factory function will initialize the given constructor with new.
 
-### `SimpleDi.withNewOnce(Constructor)`
+### `Scorpion.withNewOnce(Constructor)`
 
 Name | Type | Description
 -----|------|------------
