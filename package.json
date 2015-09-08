@@ -1,5 +1,5 @@
 {
-  "name": "Scorpion",
+  "name": "scorpion",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -14,11 +14,19 @@
     "type": "git",
     "url": "https://github.com/p7s1digital/scorpion.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Julian Hollmann",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/p7s1digital/scorpion/issues"
   },
+  "keywords": [
+    "dependency",
+    "di",
+    "dependency-injection",
+    "injector",
+    "async",
+    "async dependency injection"
+  ],
   "homepage": "https://github.com/p7s1digital/scorpion",
   "devDependencies": {
     "babel": "^5.5.14",
