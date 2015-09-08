@@ -1,7 +1,7 @@
 # Scorpion
 
 ## Quickstart
-Install Scorpion 2 with npm: `npm install simpledi2`.
+Install Scorpion with npm: `npm install scorpion`.
 
 ```javascript
 import Scorpion from 'scorpion';
