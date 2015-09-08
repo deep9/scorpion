@@ -129,7 +129,7 @@ same instance. You can think of it as a singleton factory.
 
 The MIT License (MIT)
 
-Copyright (c) 2015 Julian Hollmann
+Copyright (c) 2015 ProSiebenSat.1 Digital GmbH
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
