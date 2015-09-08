@@ -1,5 +1,10 @@
 # Scorpion
 
+## Requirements
+This package requires **ES5** and **promises**.
+
+We strongly recommend to use [jakearchibald/es6-promise](https://github.com/jakearchibald/es6-promise)
+
 ## Quickstart
 Install Scorpion with npm: `npm install scorpion`.
 
