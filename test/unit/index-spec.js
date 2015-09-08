@@ -1,4 +1,4 @@
-import SimpleDi from '../../src/simpledi.js';
+import SimpleDi from '../../src/index.js';
 
 describe('SimpleDi', function() {
   let di;

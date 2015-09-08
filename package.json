@@ -1,8 +1,8 @@
 {
-  "name": "SimpleDi2",
+  "name": "Scorpion",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "prepublish": "npm run build",
     "test": "mocha --reporter dot --recursive -r setup-referee-sinon/globals test/unit --compilers js:babel/register",
@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/p7s1digital/psd-simpledi.git"
+    "url": "https://github.com/p7s1digital/scorpion.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/p7s1digital/psd-simpledi/issues"
+    "url": "https://github.com/p7s1digital/scorpion/issues"
   },
-  "homepage": "https://github.com/p7s1digital/psd-simpledi",
+  "homepage": "https://github.com/p7s1digital/scorpion",
   "devDependencies": {
     "babel": "^5.5.14",
     "babel-eslint": "^3.1.23",
