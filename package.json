@@ -4,7 +4,7 @@
   "description": "Dependency injector which allows to register async factories",
   "main": "dist/index.js",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "npm run bundle",
     "test": "mocha --reporter dot --recursive -r setup-referee-sinon/globals test/unit --compilers js:babel/register",
     "lint": "eslint src test",
     "build": "npm install && npm run bundle",
