@@ -89,7 +89,7 @@ di.get('foo').then((foo) => {
 });
 ```
 
-#### di.getAll(arrayOfDependencyNames)
+#### `di.getAll(arrayOfDependencyNames)`
 
 `getAll` returns a promise which will be resolved once all requested modules and dependencies are resolved.
 
@@ -100,7 +100,7 @@ di.getAll(['foo', 'bar']).then((modules) => {
 });
 ```
 
-## Built-in factory functions
+## Built-in factory creator functions
 
 ### `Scorpion.always(objectOrFunction)`
 
