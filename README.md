@@ -1,5 +1,7 @@
 # Scorpion
 
+[![Build Status](https://travis-ci.org/p7s1digital/scorpion.svg?branch=master)](https://travis-ci.org/p7s1digital/scorpion)
+
 ## Requirements
 This package requires **ES5** and **promises**.
 
