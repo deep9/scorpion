@@ -94,7 +94,7 @@ di.get('foo').then((foo) => {
 `getAll` returns a promise which will be resolved once all requested modules and dependencies are resolved.
 
 ```javascript
-di.getAll(['foo', 'bar]).then((modules) => {
+di.getAll(['foo', 'bar']).then((modules) => {
   modules[0] // foo
   modules[1] // bar
 });
