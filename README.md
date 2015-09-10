@@ -1,5 +1,7 @@
 # Scorpion
 
+[![Build Status](https://travis-ci.org/p7s1digital/scorpion.svg?branch=master)](https://travis-ci.org/p7s1digital/scorpion)
+
 ## Requirements
 This package requires **ES5** and **promises**.
 
@@ -73,6 +75,19 @@ di.getAll(['foo', 'bar']).then((modules) => {
   modules[0] // foo
   modules[1] // bar
 });
+```
+
+### Other 
+
+#### `di.getResolvedDependencyCount()`
+
+Returns an object with numbers that state how often each dependency got resolved.
+
+```javascript
+
+// Example return value
+{ Foo: 1, Bar: 1, Baz: 1 }
+
 ```
 
 ## Built-in factory creator functions
