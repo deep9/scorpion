@@ -8,7 +8,8 @@
     "test": "mocha --reporter dot --recursive -r setup-referee-sinon/globals test/unit --compilers js:babel/register",
     "lint": "eslint src test",
     "build": "npm install && npm run bundle",
-    "bundle": "rimraf dist/ && mkdirp dist && NODE_ENV=production babel src/ --out-dir dist/"
+    "bundle": "rimraf dist/ && mkdirp dist && NODE_ENV=production babel src/ --out-dir dist/ && npm run polyfill",
+    "polyfill": "autopolyfiller dist/*.js > dist/polyfill.js"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "rimraf": "^2.4.3",
     "setup-referee-sinon": "^0.3.0",
     "sinon": "^1.15.4",
-    "sinon-as-promised": "^4.0.0"
+    "sinon-as-promised": "^4.0.0",
+    "autopolyfiller": "^1.6.1"
   }
 }
