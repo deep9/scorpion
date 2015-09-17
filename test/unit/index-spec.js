@@ -218,5 +218,14 @@ describe('Scorpion', function() {
         done();
       });
     });
+    it('forwards the defined dependencies to the passed factory', function() {
+      const spy = sinon.spy();
+      di.register('bar', Scorpion.always('bar'));
+      di.register('foo', ['bar'], Scorpion.once(spy));
+
+      return di.get('foo').then(function(bar) {
+        expect(spy).toHaveBeenCalledWith('bar');
+      });
+    });
   });
 });
