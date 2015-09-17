@@ -1,6 +1,6 @@
 {
   "name": "scorpion",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Dependency injector which allows to register async factories",
   "main": "dist/index.js",
   "scripts": {
