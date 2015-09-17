@@ -105,16 +105,14 @@ export default class Scorpion {
 
   static once(factory) {
     const id = uuid();
-    return () => {
-      return new Promise((resolve) => {
-        if (!_instanceCache[id]) {
-          const thisArg = {};
-          _instanceCache[id] = {
-            returnValue: factory.apply(thisArg, arguments)
-          };
-        }
-        return resolve(_instanceCache[id].returnValue);
-      });
+    return (...args) => {
+      if (!_instanceCache[id]) {
+        const thisArg = {};
+        _instanceCache[id] = {
+          returnValue: factory.apply(thisArg, args)
+        };
+      }
+      return _instanceCache[id].returnValue;
     };
   }
 
