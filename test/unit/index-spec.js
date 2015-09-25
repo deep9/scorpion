@@ -20,8 +20,11 @@ describe('Scorpion', function() {
     });
     it('throws when a invalid number of arguments is passed', function() {
       expect(function() {
-        di.register('foo');
+        di.register('foo');g
       }).toThrow();
+    });
+    it('returns the scorpion instance', function() {
+      expect(di.register('foo', {})).toBe(di);
     });
   });
 
@@ -31,6 +34,9 @@ describe('Scorpion', function() {
       expect(function() {
         di.forceRegister('foo', {});
       }).not.toThrow();
+    });
+    it('returns the scorpion instance', function() {
+      expect(di.forceRegister('foo', {})).toBe(di);
     });
   });
 
