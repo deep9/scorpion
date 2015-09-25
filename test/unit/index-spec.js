@@ -20,7 +20,7 @@ describe('Scorpion', function() {
     });
     it('throws when a invalid number of arguments is passed', function() {
       expect(function() {
-        di.register('foo');g
+        di.register('foo');
       }).toThrow();
     });
     it('returns the scorpion instance', function() {
@@ -224,7 +224,7 @@ describe('Scorpion', function() {
       di.register('bar', Scorpion.always('bar'));
       di.register('foo', ['bar'], Scorpion.once(spy));
 
-      return di.get('foo').then(function(bar) {
+      return di.get('foo').then(function() {
         expect(spy).toHaveBeenCalledWith('bar');
       });
     });
