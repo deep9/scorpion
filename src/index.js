@@ -37,7 +37,9 @@ export default class Scorpion {
         const stringifiedChain = this._stringifyDependencyChain(clonedChain.concat([
           dependencyName
         ]));
-        throw new Error('Circular Dependency detected: ' + stringifiedChain);
+        return new Promise(function(resolve, reject) {
+          reject(new Error('Circular Dependency detected: ' + stringifiedChain));
+        });
       }
       return this._resolve(dependencyName, clonedChain);
     })).then((dependencies) => {
