@@ -150,15 +150,21 @@ describe('Scorpion', function() {
         expect(e.toString()).toEqual('Error: Circular Dependency detected: Foo => Bar => Foo');
       }
     });
-    it('throws an explicit exception when a dependency does not exist', function() {
+
+    it('rejects when the module was not found', function() {
+      return di.get('foobar').catch(function(error) {
+        expect(error.toString()).toBe('Error: Module not found: foobar');
+      });
+    });
+
+    it('rejects with an explicit error when a dependency does not exist', function() {
       di.register('Foo', ['Bar'], () => {
         return {};
       });
-      try {
-        di.get('Foo');
-      } catch(e) {
-        expect(e.toString()).toEqual('Error: Dependency not found: Bar');
-      }
+
+      return di.get('Foo').catch(function(error) {
+        expect(error.toString()).toBe('Error: Dependency not found: Bar');
+      });
     });
   });
 
