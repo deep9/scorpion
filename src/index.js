@@ -23,9 +23,13 @@ export default class Scorpion {
     const requestedModule = this._registry[name];
     if (!requestedModule) {
       if (chain.length === 0) {
-        return Promise.reject(new Error('Module not found: ' + name));
+        return Promise.reject(
+            new Error('Module not found: ' + name)
+        );
       }
-      return Promise.reject(new Error('Dependency not found: ' + name));
+      return Promise.reject(
+          new Error('Dependency not found: ' + name)
+      );
     }
     this._resolvedDependencies[name]++;
     chain.push(name);
@@ -35,7 +39,9 @@ export default class Scorpion {
         const stringifiedChain = this._stringifyDependencyChain(clonedChain.concat([
           dependencyName
         ]));
-        return Promise.reject(new Error('Circular Dependency detected: ' + stringifiedChain));
+        return Promise.reject(
+            new Error('Circular Dependency detected: ' + stringifiedChain)
+        );
       }
       return this._resolve(dependencyName, clonedChain);
     })).then((dependencies) => {
