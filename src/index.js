@@ -24,11 +24,11 @@ export default class Scorpion {
     if (!requestedModule) {
       if (chain.length === 0) {
         return Promise.reject(
-            new Error('Module not found: ' + name)
+          new Error('Module not found: ' + name)
         );
       }
       return Promise.reject(
-          new Error('Dependency not found: ' + name)
+        new Error('Dependency not found: ' + name)
       );
     }
     this._resolvedDependencies[name]++;
@@ -40,7 +40,7 @@ export default class Scorpion {
           dependencyName
         ]));
         return Promise.reject(
-            new Error('Circular Dependency detected: ' + stringifiedChain)
+          new Error('Circular Dependency detected: ' + stringifiedChain)
         );
       }
       return this._resolve(dependencyName, clonedChain);
