@@ -76,9 +76,7 @@ describe('Scorpion', function() {
         return depA;
       });
       di.register('depB', function() {
-        return new Promise(function(resolve) {
-          resolve(depB);
-        });
+        return Promise.resolve(depB);
       });
     });
 
@@ -96,9 +94,7 @@ describe('Scorpion', function() {
 
     it('retrieves an async module and resolves its dependencies', function() {
       di.register('depC', ['depB'], function(dependencyB) {
-        return new Promise(function(resolve) {
-          resolve([depC, dependencyB]);
-        });
+        return Promise.resolve([depC, dependencyB]);
       });
       return di.get('depC').then(function(arr) {
         expect(arr).toEqual([depC, depB]);
